@@ -11,16 +11,14 @@ public class Account {
     private Integer id;
 
     private String name;
+
     private String password;
-
-
-    private Integer emplNumber;
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(final Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -28,15 +26,15 @@ public class Account {
         return name;
     }
 
-    public void setName(final String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public Integer getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPasswordassword(final String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 }

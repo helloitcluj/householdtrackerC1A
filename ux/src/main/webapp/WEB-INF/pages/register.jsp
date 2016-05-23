@@ -1,16 +1,11 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Student
-  Date: 5/23/2016
-  Time: 8:38 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
 <head>
-    <title>Title</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Test</title>
 </head>
 <body>
-
+OK
 </body>
 </html>

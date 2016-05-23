@@ -1,7 +1,15 @@
 package com.helloit.householdtracker;
 
-/**
- * Created by Student on 5/23/2016.
- */
+import com.helloit.householdtracker.ux.entities.Account;
+import org.junit.Test;
+
 public class AccountTest {
+
+    @Test
+    public void testAccount() {
+
+        final Account entity = new Account();
+        entity.setName("hello");
+        entity.setPassword("world");
+    }
 }
