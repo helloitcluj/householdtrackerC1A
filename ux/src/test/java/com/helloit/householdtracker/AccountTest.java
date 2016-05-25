@@ -1,14 +1,15 @@
 package com.helloit.householdtracker;
 
-import com.helloit.householdtracker.ux.entities.Account;
+import com.helloit.householdtracker.ux.entities.Accounts;
 import org.junit.Test;
 
-public class AccountTest {
+public class
+AccountTest {
 
     @Test
     public void testAccount() {
 
-        final Account entity = new Account();
+        final Accounts entity = new Accounts();
         entity.setName("hello");
         entity.setPassword("world");
     }
