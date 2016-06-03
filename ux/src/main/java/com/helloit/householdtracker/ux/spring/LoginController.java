@@ -11,26 +11,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Service
 @Controller
-@RequestMapping("register")
-public class RegisterController {
+@RequestMapping("op")
+public class LoginController {
 
-    private static final Logger LOGGER = LogManager.getLogger(RegisterController.class);
+    private static final Logger LOGGER = LogManager.getLogger(LoginController.class);
 
     private static final String MESSAGE_PARAMETER_TAG = "message";
-    private static final String HELLO_VIEW_TAG = "register";
+    private static final String HELLO_VIEW_TAG = "op";
     private static final String SAMPLE_TEXT = "Szia HelloIT ";
 
     //@Resource
     ///public IAccountRepository accountRepository;
 
     //@Transactional
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.GET)
     public String printWelcome(String name, final ModelMap model) {
 
         LOGGER.info(name);
 
 
-        /*final Account entity = new Account();
+       /* final Account entity = new Account();
         entity.setName("hello");
         entity.setPassword("world");
         final Account savedEntity = accountRepository.save(entity);*/
