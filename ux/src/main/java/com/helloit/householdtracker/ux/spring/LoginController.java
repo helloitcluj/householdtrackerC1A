@@ -1,13 +1,19 @@
 package com.helloit.householdtracker.ux.spring;
 
 
+import com.helloit.householdtracker.common.entities.Account;
+import com.helloit.householdtracker.common.repository.IAccountRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.exception.ConstraintViolationException;
+import org.hsqldb.rights.User;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 
 
 /**
@@ -18,22 +24,54 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("login")
 
-public class LoginController {
+public abstract class LoginController implements IAccountRepository {
 
     private static final Logger LOGGER = LogManager.getLogger(LoginController.class);
 
-    private static final String MESSAGE_PARAMETER_TAG = "message";
-    private static final String Login_Page = "login";
-    private static final String SAMPLE_TEXT = "Szia HelloIT ";
+    private final IAccountRepository accountRepository;
 
-    @RequestMapping(method = RequestMethod.POST)
+    @Autowired
+    public LoginController(final IAccountRepository userRepository) {
+        this.accountRepository = userRepository;
+    }
 
-    public String printWelcome(String name, final ModelMap model) {
+    @Override
+    public CreationOutcomes createAccount(@NotNull final String accountName, @NotNull final String password, @NotNull final String retypedPassword) {
+        CreationOutcomes result;
 
-        LOGGER.info(name);
+        if (password.equals(retypedPassword)) {
+            final Account account = new Account();
+            account.setName(accountName);
+            account.setPassword(password);
 
+            try {
+                accountRepository.save(account);
+                result = CreationOutcomes.SUCCESS;
+            } catch (JpaSystemException ex) {
+                boolean found = false;
+                for (Throwable exceptionChain = ex; exceptionChain != null && !found; exceptionChain = exceptionChain.getCause()) {
+                    found = exceptionChain instanceof ConstraintViolationException;
+                }
 
-        return Login_Page;
+                if (found) {
+                    result = CreationOutcomes.EXISTING_ACCOUNT;
+                } else {
+                    throw ex;
+                }
+
+            }
+        } else {
+            result = CreationOutcomes.RETYPED_PASSWORD_DO_NOT_MATCH;
+        }
+
+        return result;
+    }
+
+    @Override
+    public boolean authenticate(@NotNull final String accountName, @NotNull final String password) {
+        final Account account = accountRepository.findOneByName(accountName);
+
+        return account != null && password.equals(account.getPassword());
     }
 }
 

@@ -1,10 +1,10 @@
-package com.helloit.householdtracker.ux.entities;
+package com.helloit.householdtracker.common.entities;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Account")
-public class Accounts {
+public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,4 +37,6 @@ public class Accounts {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }

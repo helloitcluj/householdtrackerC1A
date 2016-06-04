@@ -18,11 +18,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         jsRegistration.addResourceLocations("/js/");
         final ResourceHandlerRegistration xmlRegistration = registry.addResourceHandler("/xml/**");
         xmlRegistration.addResourceLocations("/xml/");
-    }
-
-    @Override
-    public void configureDefaultServletHandling(final DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
+        final ResourceHandlerRegistration accountRegistration = registry.addResourceHandler("/account/**");
+        accountRegistration.addResourceLocations("/account/");
     }
 
 

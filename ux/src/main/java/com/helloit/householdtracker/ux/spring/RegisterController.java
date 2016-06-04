@@ -1,42 +1,43 @@
 package com.helloit.householdtracker.ux.spring;
 
 
+import com.helloit.householdtracker.common.entities.Account;
+import com.helloit.householdtracker.common.repository.IAccountRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+
 @Service
 @Controller
-@RequestMapping("register")
+@RequestMapping("account")
 public class RegisterController {
 
-    private static final Logger LOGGER = LogManager.getLogger(RegisterController.class);
+    public static final String CURRENT_PRINCIPAL_TAG = "CurrentPrincipal";
+    private static final String HOME = "homepage";
 
-    private static final String MESSAGE_PARAMETER_TAG = "message";
-    private static final String HELLO_VIEW_TAG = "register";
-    private static final String SAMPLE_TEXT = "Szia HelloIT ";
+    @RequestMapping(path = "create", method = RequestMethod.POST)
+    public String create(final ModelMap model, final HttpSession session) {
+        final String result;
 
-    //@Resource
-    ///public IAccountRepository accountRepository;
+        final Object currentPrincipal = session.getAttribute(CURRENT_PRINCIPAL_TAG);
 
-    //@Transactional
-    @RequestMapping(method = RequestMethod.POST)
-    public String printWelcome(String name, final ModelMap model) {
+        if (currentPrincipal != null) {
+            result = HOME;
+        } else {
+            result = "redirect:/account/loginaccount.html";
+        }
 
-        LOGGER.info(name);
 
-
-        /*final Account entity = new Account();
-        entity.setName("hello");
-        entity.setPassword("world");
-        final Account savedEntity = accountRepository.save(entity);*/
-
-        //model.addAttribute(MESSAGE_PARAMETER_TAG, SAMPLE_TEXT);
-
-        return HELLO_VIEW_TAG;
+        return result;
     }
+
+
 }
