@@ -15,15 +15,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
-@Service
 @Controller
-@RequestMapping("account")
-public class RegisterController {
+public class HomeController {
 
     public static final String CURRENT_PRINCIPAL_TAG = "CurrentPrincipal";
     private static final String HOME = "homepage";
 
-    @RequestMapping(path = "create", method = RequestMethod.POST)
+    @RequestMapping(path = "/", method = RequestMethod.GET)
     public String create(final ModelMap model, final HttpSession session) {
         final String result;
 
@@ -32,7 +30,7 @@ public class RegisterController {
         if (currentPrincipal != null) {
             result = HOME;
         } else {
-            result = "redirect:/account/loginaccount.html";
+            result = "redirect:/account/login_account.html";
         }
 
 

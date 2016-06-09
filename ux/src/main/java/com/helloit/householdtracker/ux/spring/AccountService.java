@@ -6,14 +6,10 @@ import com.helloit.householdtracker.common.repository.IAccountRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.exception.ConstraintViolationException;
-import org.hsqldb.rights.User;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.JpaSystemException;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 
 
 /**
@@ -21,21 +17,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 
 @Service
-@Controller
-@RequestMapping("login")
+public abstract class AccountService {
 
-public abstract class LoginController implements IAccountRepository {
-
-    private static final Logger LOGGER = LogManager.getLogger(LoginController.class);
+    private static final Logger LOGGER = LogManager.getLogger(AccountService.class);
 
     private final IAccountRepository accountRepository;
 
     @Autowired
-    public LoginController(final IAccountRepository userRepository) {
+    public AccountService(final IAccountRepository userRepository) {
         this.accountRepository = userRepository;
     }
 
-    @Override
+
     public CreationOutcomes createAccount(@NotNull final String accountName, @NotNull final String password, @NotNull final String retypedPassword) {
         CreationOutcomes result;
 
@@ -67,11 +60,14 @@ public abstract class LoginController implements IAccountRepository {
         return result;
     }
 
-    @Override
     public boolean authenticate(@NotNull final String accountName, @NotNull final String password) {
         final Account account = accountRepository.findOneByName(accountName);
 
         return account != null && password.equals(account.getPassword());
+    }
+
+    private enum CreationOutcomes {
+        EXISTING_ACCOUNT, RETYPED_PASSWORD_DO_NOT_MATCH, SUCCESS
     }
 }
 
