@@ -4,8 +4,9 @@
     <title></title>
 </head>
 <body>
-Account created!
-<br/>
-You can now <a href="loginaccount.html">login...</a>
+<h1>Account created successfully!</h1>
+<p>
+You can now <a href="login_account.html">login...</a>
+</p>
 </body>
 </html>

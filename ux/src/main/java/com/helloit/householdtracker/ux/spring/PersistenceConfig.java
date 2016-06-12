@@ -15,10 +15,10 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories("aron.sinoai.springmvcjpa.common.repository")
+@EnableJpaRepositories("com.helloit.householdtracker.common.repository")
 public class PersistenceConfig {
 
-    public static final String ENTITIES_BASE_PACKAGE = "com.helloit.householdtracker.ux.entities";
+    public static final String ENTITIES_BASE_PACKAGE = "com.helloit.householdtracker.common.entities";
     public static final String TRUE_TAG = "true";
     private static final String PROPERTY_HIBERNATE_DIALECT = "hibernate.dialect";
     private static final String PROPERTY_HIBERNATE_SHOW_SQL = "hibernate.show_sql";

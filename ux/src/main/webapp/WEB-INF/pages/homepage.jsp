@@ -14,8 +14,8 @@
 
     </style>
 </head>
-<body style=' background-size: cover; background-repeat:no-repeat; background-image: url("../images/sea.jpg")'>
+<body style=' background-size: cover; background-repeat:no-repeat; background-image: url("images/sea.jpg")'>
 <h2><em>Hello dear Visitor</em></h2>
-<button type="Google"><a href="http://google.com" style="color:black; margin-bottom:30px">Google</a></button>
+<button><a href="http://google.com" style="color:black; margin-bottom:30px">Google</a></button>
 </body>
 </html>

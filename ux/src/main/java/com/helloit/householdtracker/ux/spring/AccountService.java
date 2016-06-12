@@ -3,6 +3,7 @@ package com.helloit.householdtracker.ux.spring;
 
 import com.helloit.householdtracker.common.entities.Account;
 import com.helloit.householdtracker.common.repository.IAccountRepository;
+import com.helloit.householdtracker.common.services.IAccountService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.exception.ConstraintViolationException;
@@ -13,11 +14,10 @@ import org.springframework.stereotype.Service;
 
 
 /**
- * Created by Administrator on 5/25/2016.
  */
 
 @Service
-public abstract class AccountService {
+public class AccountService implements IAccountService {
 
     private static final Logger LOGGER = LogManager.getLogger(AccountService.class);
 
@@ -29,6 +29,7 @@ public abstract class AccountService {
     }
 
 
+    @Override
     public CreationOutcomes createAccount(@NotNull final String accountName, @NotNull final String password, @NotNull final String retypedPassword) {
         CreationOutcomes result;
 
@@ -60,14 +61,12 @@ public abstract class AccountService {
         return result;
     }
 
+    @Override
     public boolean authenticate(@NotNull final String accountName, @NotNull final String password) {
         final Account account = accountRepository.findOneByName(accountName);
 
         return account != null && password.equals(account.getPassword());
     }
 
-    private enum CreationOutcomes {
-        EXISTING_ACCOUNT, RETYPED_PASSWORD_DO_NOT_MATCH, SUCCESS
-    }
 }
 

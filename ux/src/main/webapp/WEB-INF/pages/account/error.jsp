@@ -4,6 +4,6 @@
     <title></title>
 </head>
 <body>
-ok
+<h1>${message}</h1>
 </body>
 </html>
