@@ -21,21 +21,23 @@
 
 <div class="container">
     <h2><label> <b> Username</b></label></h2>
-    <form action="login" method="post">
-    <p><input type="text" placeholder="Enter Username" name="userName" required>
+    <form id="mainForm" action="loginAjax" method="post">
+    <p><input type="text" placeholder="Enter Username" name="userName" id="userName" required>
     <p></p>
 
     <h2><label><b>Password</b></label> </h2>
-    <input type="text" placeholder="Enter Password" name="password" required>
+    <input type="text" placeholder="Enter Password" name="password" id="password" required>
     <p></p>
 
     <button type="submit">Login</button>
+    <div id="errorMessage"></div>
 
-    </form>
+
 
     <h2>Don't have an account? <a href="create_account.html">Click here!</a></h2>
-</div>
 
+</form>
+</div>
 <!-- Bootstrap core JavaScript
     ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
@@ -43,7 +45,26 @@
 <script>window.jQuery || document.write('<script src="../js/vendor/jquery.min.js"><\/script>')</script>
 <script src="../js/vendor/bootstrap.min.js"></script>
 
+<script type="text/javascript">
 
+$(function() {
+    $("#mainForm").submit(function (event) {
+        event.preventDefault();
+
+        var posting = $.post("loginAjax", {userName: $("#userName").val(), password: $("#password").val()});
+        posting.done(function (message) {
+            if (message === "") {
+                window.location.href = "../";
+            }
+            else {
+                $("#errorMessage").empty().append(message);
+            }
+
+        });
+    });
+});
+
+</script>
 </body>
 
 </html>
