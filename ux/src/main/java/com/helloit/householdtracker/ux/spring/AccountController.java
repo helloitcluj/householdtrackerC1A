@@ -86,4 +86,28 @@ public class AccountController {
         return result;
     }
 
+    @RequestMapping(path = "createAjax", method = RequestMethod.POST)
+    public @ResponseBody  String createAjax( final String userName, final String password,
+                                             final String retypedPassword) {
+        final String result;
+
+
+        final IAccountService.CreationOutcomes authenticate = accountService.createAccount(userName, password, retypedPassword);
+        switch (authenticate) {
+            case SUCCESS:
+                result = null;
+                break;
+            case EXISTING_ACCOUNT:
+                result =  THE_ACCOUNT_ALREADY_EXISTS;
+                break;
+            case RETYPED_PASSWORD_DO_NOT_MATCH:
+                result =  THE_RETYPED_PASSWORD_DOESN_T_MATCH;
+                break;
+            default:
+                throw new UnsupportedOperationException(NOT_SUCH_CASE);
+        }
+
+        return result;
+    }
+
 }

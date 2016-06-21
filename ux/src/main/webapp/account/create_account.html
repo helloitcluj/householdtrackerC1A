@@ -1,18 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
     <title>Create Account</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../css/vendor/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
-<form action="create" method="post">
-    <label>User name:<input type="text" name="userName"></label>
-    <br><br>
-    <label>Password:<input type="password" name="password"></label>
-    <br><br>
-    <label>Retype password:<input type="password" name="retypedPassword"></label>
-    <br><br>
+
+<div class="container">
+    <h2><label> <b> Username</b></label></h2>
+<form id="mainForm" action="createAjax" method="post">
+
+    <p><input type="text" placeholder="Enter Username" name="userName" id="userName" required>
+    <p></p>
+
+    <h2><label><b>Password</b></label> </h2>
+    <input type="text" placeholder="Enter Password" name="password" id="password" required>
+    <p></p>
+
+    <h2><label><b>Password</b></label> </h2>
+    <input type="text" placeholder="Retype Password" name="retypedPassword" id="retypedPassword" required>
+    <p></p>
+
+    <div id="errorMessage"></div>
+
     <input type="submit" value="Create New Account">
 </form>
+</div>
+
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../js/vendor/jquery.min.js"><\/script>')</script>
+<script src="../js/vendor/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+    $(function() {
+        $("#mainForm").submit(function (event) {
+            event.preventDefault();
+
+            var posting = $.post("createAjax", {userName: $("#userName").val(), password: $("#password").val(),retypedPassword: $("#retypedPassword").val()});
+            posting.done(function (message) {
+                if (message === "") {
+                    $("#errorMessage").empty().append("Account is created sucsessfuly. Please click <a href=\"login_account.html\">here</a> to login");
+
+                }
+                else {
+                    $("#errorMessage").empty().append(message);
+                }
+
+            });
+        });
+    });
+
+</script>
 </body>
+
 </html>
