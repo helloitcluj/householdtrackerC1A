@@ -30,9 +30,9 @@
     <p></p>
 
     <button type="submit">Login</button>
-    <div id="errorMessage"></div>
 
 
+<div id="errorMessage"></div>
 
     <h2>Don't have an account? <a href="create_account.html">Click here!</a></h2>
 
@@ -57,7 +57,9 @@ $(function() {
                 window.location.href = "../";
             }
             else {
-                $("#errorMessage").empty().append(message);
+          var $messageDiv =  $('<div class="alert alert-danger" role="alert"></div>');
+                $messageDiv.append(message)
+                $("#errorMessage").empty().append($messageDiv);
             }
 
         });
