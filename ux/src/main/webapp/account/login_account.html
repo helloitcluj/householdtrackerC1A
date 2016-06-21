@@ -61,6 +61,11 @@ $(function() {
             }
 
         });
+        posting.fail(function(result){
+
+            $("#errorMessage").empty().append("Could not find the user!");
+
+        });
     });
 });
 
