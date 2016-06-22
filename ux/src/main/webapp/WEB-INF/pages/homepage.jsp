@@ -26,7 +26,7 @@
 
 <div class="container">
 <h2><em>Hello dear Visitor</em></h2>
-<button id="logout">Logout</button>
+<button id="logout" style="margin-top: 100px">Logout</button>
 </div>
 
 
