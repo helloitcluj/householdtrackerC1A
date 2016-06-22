@@ -26,21 +26,21 @@
     <p></p>
 
     <h2><label><b>Password</b></label> </h2>
-    <input type="text" placeholder="Enter Password" name="password" id="password" required>
+    <input type="password" placeholder="Enter Password" name="password" id="password" required>
     <p></p>
 
     <button type="submit">Login</button>
+    <div id="errorMessage"></div>
 
 
-<div id="errorMessage"></div>
 
     <h2>Don't have an account? <a href="create_account.html">Click here!</a></h2>
 
 </form>
 </div>
 <!-- Bootstrap core JavaScript
-================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="../js/vendor/jquery.min.js"><\/script>')</script>
 <script src="../js/vendor/bootstrap.min.js"></script>
@@ -57,17 +57,15 @@ $(function() {
                 window.location.href = "../";
             }
             else {
-          var $messageDiv =  $('<div class="alert alert-danger" role="alert"></div>');
+                var $messageDiv = $('<div class="alert alert-danger" role="alert"></div>');
                 $messageDiv.append(message)
                 $("#errorMessage").empty().append($messageDiv);
             }
 
         });
-        posting.fail(function(result){
-
-            $("#errorMessage").empty().append("Could not find the user!");
-
-        });
+      posting.fail( function(result){
+          $("#errorMessage").empty().append("Could not find server");
+      })
     });
 });
 

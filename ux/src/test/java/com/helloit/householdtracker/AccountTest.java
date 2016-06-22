@@ -1,6 +1,7 @@
 package com.helloit.householdtracker;
 
 import com.helloit.householdtracker.common.entities.Account;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class

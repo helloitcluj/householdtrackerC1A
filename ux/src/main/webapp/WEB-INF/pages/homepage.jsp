@@ -4,8 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <title>Homepage</title>
+
     <!-- Bootstrap core CSS -->
     <link href="css/vendor/bootstrap.min.css" rel="stylesheet">
 
@@ -20,42 +22,11 @@
 
     </style>
 </head>
-
-
-<body style=' background-size: cover; background: url("images/sea.jpg") no-repeat;'>
-
-<div class="container">
-<h2><em>Hello dear Visitor</em></h2>
+<body style=' background-size: cover; background-repeat:no-repeat; background-image: url("images/sea.jpg")'>
+<div class = "container"
+<h2><em>Welcome</em></h2>
+<button><a href="http://google.com" style="color:black; margin-bottom:30px">Google</a></button>
 <button id="logout">Logout</button>
 </div>
-
-
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script>
-<script src="js/vendor/bootstrap.min.js"></script>
-
-<script type="text/javascript">
-
-    $(function() {
-        $("#logout").click(function (event) {
-
-
-            var posting = $.post("account/logout");
-            posting.done(function () {
-
-                window.location.href = "account/login_account.html";
-
-            });
-        });
-    });
-
-
-
-
-</script>
-</body>
+</body >
 </html>
