@@ -1,7 +1,7 @@
 package com.helloit.householdtracker.common.entities;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  */
@@ -15,9 +15,19 @@ public class Expense {
     private Integer id;
 
     private double amount;
-    private Date date;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar date;
+
     private String description;
     private Integer accountId;
+
+    public Expense(double amount, Calendar date, String description, Integer accountId) {
+        this.amount = amount;
+        this.date = date;
+        this.description = description;
+        this.accountId = accountId;
+    }
 
     public Integer getId() {
         return id;
@@ -35,11 +45,11 @@ public class Expense {
         this.amount = amount;
     }
 
-    public Date getDate() {
+    public Calendar getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Calendar date) {
         this.date = date;
     }
 
