@@ -9,7 +9,9 @@ CREATE TABLE account (
 CREATE TABLE expense (
   id INTEGER IDENTITY PRIMARY KEY,
   amount DOUBLE,
-  date DATE,
+  date TIMESTAMP,
   description VARCHAR(30),
   accountId INTEGER NOT NULL
 );
+
+ALTER TABLE expense ADD FOREIGN KEY (accountId) REFERENCES account (id);
