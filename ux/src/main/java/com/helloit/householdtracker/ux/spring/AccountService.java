@@ -68,5 +68,12 @@ public class AccountService implements IAccountService {
         return account != null && password.equals(account.getPassword());
     }
 
+    @Override
+    public Account find(final String accountName) {
+
+        return accountRepository.findOneByName(accountName);
+    }
+
+
 }
 
