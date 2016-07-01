@@ -2,6 +2,7 @@ package com.helloit.householdtracker.ux.spring;
 
 
 import com.helloit.householdtracker.common.services.IAccountService;
+import com.helloit.householdtracker.ux.common.SecurityFilter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,6 @@ import javax.servlet.http.HttpSession;
 @RequestMapping(path = "account")
 public class AccountController {
 
-    public static final String CURRENT_PRINCIPAL_TAG = "CurrentPrincipal";
     public static final String SUCCESS = "account/success";
     public static final String ERROR = "account/error";
     public static final String MESSAGE_TAG = "message";
@@ -40,7 +40,7 @@ public class AccountController {
 
         if (accountService.authenticate(userName, password)) {
             result = "redirect:/";
-            session.setAttribute(CURRENT_PRINCIPAL_TAG, userName);
+            session.setAttribute(SecurityFilter.CURRENT_PRINCIPAL_TAG, userName);
         } else {
             result = ERROR;
             model.addAttribute(MESSAGE_TAG, FAILED_TO_AUTHENTICATE);
@@ -58,7 +58,7 @@ public class AccountController {
 
         if (accountService.authenticate(userName, password)) {
             result = null;
-            session.setAttribute(CURRENT_PRINCIPAL_TAG, userName);
+            session.setAttribute(SecurityFilter.CURRENT_PRINCIPAL_TAG, userName);
         } else {
             result = FAILED_TO_AUTHENTICATE;
 
@@ -125,7 +125,7 @@ public class AccountController {
     public
     @ResponseBody  void logout(final HttpSession session) {
        if(LOGGER.isDebugEnabled()){
-           Object username = session.getAttribute(CURRENT_PRINCIPAL_TAG);
+           Object username = session.getAttribute(SecurityFilter.CURRENT_PRINCIPAL_TAG);
            LOGGER.debug("Logging out user " + username);
         }
 
