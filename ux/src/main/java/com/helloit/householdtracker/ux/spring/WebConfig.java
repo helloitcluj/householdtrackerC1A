@@ -24,7 +24,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         final ResourceHandlerRegistration accountRegistration = registry.addResourceHandler("/account/**");
         accountRegistration.addResourceLocations("/account/");
         final ResourceHandlerRegistration imagesRegistration = registry.addResourceHandler("/images/**");
-        imagesRegistration.addResourceLocations("/images/");    }
+        imagesRegistration.addResourceLocations("/images/");
+        final ResourceHandlerRegistration homeHtmlsRegistration = registry.addResourceHandler("/*.html");
+        homeHtmlsRegistration.addResourceLocations("/");
+    }
 
 
     @Bean
