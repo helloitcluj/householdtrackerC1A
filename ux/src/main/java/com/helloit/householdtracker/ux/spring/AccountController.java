@@ -2,6 +2,7 @@ package com.helloit.householdtracker.ux.spring;
 
 
 import com.helloit.householdtracker.common.services.IAccountService;
+import com.helloit.householdtracker.ux.common.SecurityFilter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 import javax.servlet.http.HttpSession;
 
 
@@ -20,7 +20,6 @@ import javax.servlet.http.HttpSession;
 @RequestMapping(path = "account")
 public class AccountController {
 
-    public static final String CURRENT_PRINCIPAL_TAG = "CurrentPrincipal";
     public static final String SUCCESS = "account/success";
     public static final String ERROR = "account/error";
     public static final String MESSAGE_TAG = "message";
@@ -29,7 +28,7 @@ public class AccountController {
     public static final String NOT_SUCH_CASE = "Not such case!";
     public static final String THE_RETYPED_PASSWORD_DOESN_T_MATCH = "The retyped password doesn't match!";
 
-    private static final Logger LOGGER= LogManager.getLogger(AccountService.class);
+    private static final Logger LOGGER = LogManager.getLogger(AccountController.class);
 
     @Autowired
     private IAccountService accountService;
@@ -41,7 +40,7 @@ public class AccountController {
 
         if (accountService.authenticate(userName, password)) {
             result = "redirect:/";
-            session.setAttribute(CURRENT_PRINCIPAL_TAG, userName);
+            session.setAttribute(SecurityFilter.CURRENT_PRINCIPAL_TAG, userName);
         } else {
             result = ERROR;
             model.addAttribute(MESSAGE_TAG, FAILED_TO_AUTHENTICATE);
@@ -49,14 +48,17 @@ public class AccountController {
 
         return result;
     }
+
     @RequestMapping(path = "loginAjax", method = RequestMethod.POST)
-    public @ResponseBody  String loginAjax(final HttpSession session, final String userName, final String password) {
+    public
+    @ResponseBody
+    String loginAjax(final HttpSession session, final String userName, final String password) {
         final String result;
 
 
         if (accountService.authenticate(userName, password)) {
             result = null;
-            session.setAttribute(CURRENT_PRINCIPAL_TAG, userName);
+            session.setAttribute(SecurityFilter.CURRENT_PRINCIPAL_TAG, userName);
         } else {
             result = FAILED_TO_AUTHENTICATE;
 
@@ -93,8 +95,10 @@ public class AccountController {
     }
 
     @RequestMapping(path = "createAjax", method = RequestMethod.POST)
-    public @ResponseBody  String createAjax( final String userName, final String password,
-                                             final String retypedPassword) {
+    public
+    @ResponseBody
+    String createAjax(final String userName, final String password,
+                      final String retypedPassword) {
         final String result;
 
 
@@ -104,10 +108,10 @@ public class AccountController {
                 result = null;
                 break;
             case EXISTING_ACCOUNT:
-                result =  THE_ACCOUNT_ALREADY_EXISTS;
+                result = THE_ACCOUNT_ALREADY_EXISTS;
                 break;
             case RETYPED_PASSWORD_DO_NOT_MATCH:
-                result =  THE_RETYPED_PASSWORD_DOESN_T_MATCH;
+                result = THE_RETYPED_PASSWORD_DOESN_T_MATCH;
                 break;
             default:
                 throw new UnsupportedOperationException(NOT_SUCH_CASE);
@@ -115,12 +119,16 @@ public class AccountController {
 
         return result;
     }
+
+
     @RequestMapping(path = "logout", method = RequestMethod.POST)
-    public @ResponseBody  void logout( final HttpSession session) {
-        if (LOGGER.isDebugEnabled()){
-            Object username = session.getAttribute(CURRENT_PRINCIPAL_TAG);
-            LOGGER.debug("Loggin out user" + username);
+    public
+    @ResponseBody  void logout(final HttpSession session) {
+       if(LOGGER.isDebugEnabled()){
+           Object username = session.getAttribute(SecurityFilter.CURRENT_PRINCIPAL_TAG);
+           LOGGER.debug("Logging out user " + username);
         }
+
         session.invalidate();
     }
 
