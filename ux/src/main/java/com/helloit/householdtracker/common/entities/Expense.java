@@ -22,7 +22,8 @@ public class Expense {
     private String description;
     private Integer accountId;
 
-    public Expense(double amount, Calendar date, String description, Integer accountId) {
+    public Expense(final double amount, final Calendar date, final String description,
+                   final Integer accountId) {
         this.amount = amount;
         this.date = date;
         this.description = description;
