@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -25,12 +24,12 @@ public class ExpenseServiceTest {
         final MockExpenseRepository repository = createMockExpenseRepository();
         final ExpenseService expenseService = new ExpenseService(repository);
 
-        final Calendar now = Calendar.getInstance();
+        final String now = "2016-07-04T15:00";
         expenseService.save(now, TEST_AMOUNT, TEST_DESCRIPTION, TEST_ACCOUNT_ID);
 
         Expense savedEntity = repository.getSavedEntity();
 
-        Assert.assertEquals("Should be the same", now, savedEntity.getDate());
+        Assert.assertNotNull("Should be a valid date", savedEntity.getDate());
         Assert.assertEquals("Should be the same", TEST_AMOUNT, savedEntity.getAmount(), 0.0);
         Assert.assertEquals("Should be the same", TEST_DESCRIPTION, savedEntity.getDescription());
         Assert.assertEquals("Should be the same", TEST_ACCOUNT_ID, savedEntity.getAccountId());

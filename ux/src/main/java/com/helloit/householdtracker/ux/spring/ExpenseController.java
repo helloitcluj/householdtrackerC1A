@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.util.Calendar;
 
 
 @Controller
@@ -32,7 +31,7 @@ public class ExpenseController {
     @RequestMapping(path = "create", method = RequestMethod.POST)
     public
     @ResponseBody
-    void create(final HttpSession session, final Calendar date, final double amount, final String description) {
+    void create(final HttpSession session, final String date, final double amount, final String description) {
         final String userName = (String) session.getAttribute(SecurityFilter.CURRENT_PRINCIPAL_TAG);
         final Account account = accountService.find(userName);
 
