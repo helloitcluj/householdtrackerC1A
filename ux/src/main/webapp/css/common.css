@@ -1,4 +1,13 @@
 body
 {
     background-color: #00cccc;
+    background-image:  url('../images/sea.jpg');
+    background-size: cover;
+}
+
+.common-title {
+    color: white;
+    text-shadow: 1px 1px 1px fuchsia;
+    text-align: center;
+    margin-top: 50px;
 }
