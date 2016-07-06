@@ -82,19 +82,19 @@
         $("#addExpenseModal").modal("hide");
     };
 
-    helloit.addExpenseRow = function (expense){
-        var $row = $("<tr></tr>");
-        var $dateCol =  $("<td></td>");
-        $dateCol.append(expense.date);
-        $row.append($dateCol);
-        var $descriptionCol =  $("<td></td>");
-        $descriptionCol.append(expense.description);
-        $row.append($descriptionCol);
-        var $amountCol =  $("<td></td>");
-        $amountCol.append(expense.amount);
-        $row.append($amountCol);
-
-        $("#expenseRows").append($row);
+    helloit.addExpenseRow = function (expense) {
+        $("#expenseRows")
+                .append($("<tr/>")
+                        .append($("<td/>")
+                                .append(expense.date)
+                )
+                        .append($("<td/>")
+                                .append(expense.description)
+                )
+                        .append($("<td/>")
+                                .append(expense.amount)
+                )
+        );
     };
 
     $("#mainDiv").prepend(helloit.createNavbar());
