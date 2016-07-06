@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  */
@@ -34,6 +35,11 @@ public class ExpenseService implements IExpenseService {
         final Expense expense = new Expense(amount, convert(date), description, accountId);
 
         return expenseRepository.save(expense);
+    }
+
+    @Override
+    public List<Expense> findAllByAccountId(Integer id) {
+        return expenseRepository.findByAccountId(id);
     }
 
     private Calendar convert(String dateAsString) {
